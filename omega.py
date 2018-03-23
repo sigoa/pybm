@@ -11,7 +11,7 @@
 import                 time
 from os         import mkdir,path
 from subprocess import call
-from sys        import argv,exit,version
+from sys        import argv,version              #    ,exit 
 from zipfile    import is_zipfile,ZipFile
 
 
@@ -35,7 +35,7 @@ print("hosted by Cyanbyte Digital Engineering (http://www.cyanbyte.de) \n")
 
 
 if path.exists("./keys/"):                                                          # status info
-    file=open( "./keys/sys.cfg","r"); local=file.read(1).lower(); file.close()
+    sfile=open( "./keys/sys.cfg","r"); local=sfile.read(1).lower(); sfile.close()                        # with
     if local!="a" and local!="b":     exit("ERROR: Invalid local system configuration (sys.cfg)")
     if local=="a":
         print("Local system is ALPHA and remote system must be BRAVO (sys.cfg)")
@@ -49,8 +49,8 @@ if path.exists("./keys/"):                                                      
     evolume=path.getsize(ekey)
     dvolume=path.getsize(dkey)
 
-    file=open(elog,"r"); eindex=int(file.read()); file.close()
-    file=open(dlog,"r"); dindex=int(file.read()); file.close()
+    sfile=open(elog,"r"); eindex=int(sfile.read()); sfile.close()
+    sfile=open(dlog,"r"); dindex=int(sfile.read()); sfile.close()
 
     eavail=str("%10.3f"%float((evolume-eindex)/1024.0/1024.0))
     davail=str("%10.3f"%float((dvolume-dindex)/1024.0/1024.0))
@@ -93,9 +93,9 @@ if operation=="-g":  # key generator
     stopped=time.time()
     info(size+size,stopped-started)
 
-    file=open("./keys/a2b.log","w"); file.write("0"); file.close()
-    file=open("./keys/b2a.log","w"); file.write("0"); file.close()
-    file=open("./keys/sys.cfg","w"); file.write("a"); file.close()
+    sfile=open("./keys/a2b.log","w"); sfile.write("0"); sfile.close()
+    sfile=open("./keys/b2a.log","w"); sfile.write("0"); sfile.close()
+    sfile=open("./keys/sys.cfg","w"); sfile.write("a"); sfile.close()
     exit(0)
 
 if not path.exists("./keys/"): exit("ERROR: No keys available")
@@ -121,20 +121,20 @@ if operation=="-e":  # encryption
         exit("ERROR: Available encryption key volume not sufficient")
 
     print("Encryption in progress...")
-    file=open("./data/data.log","w"); file.write(local+str(eindex))
-    file.close()
-    file=open("./data/pack.zip","rb"); message=file.read(); file.close()
-    file=open(ekey,"rb"); file.seek(eindex); key=file.read(size); file.close()
-    file=open("./data/data.bin","wb"); file.write(xor(message,key)); file.close()
+    sfile=open("./data/data.log","w"); sfile.write(local+str(eindex))
+    sfile.close()
+    sfile=open("./data/pack.zip","rb"); message=sfile.read(); sfile.close()
+    sfile=open(ekey,"rb"); sfile.seek(eindex); key=sfile.read(size); sfile.close()
+    sfile=open("./data/data.bin","wb"); sfile.write(xor(message,key)); sfile.close()
 
     call(["rm","./data/pack.zip"])
     call(["zip","-qr0","./data.zip","./data/"])
     call(["rm","-rf","./data/"])
     eindex+=size
 
-    file=open(elog,"w")
-    file.write(str(eindex))
-    file.close()
+    sfile=open(elog,"w")
+    sfile.write(str(eindex))
+    sfile.close()
     stopped=time.time()
 
     info(size/1024.0/1024.0,stopped-started)
@@ -158,7 +158,7 @@ if operation=="-d":  # decryption
 
     started=time.time()
     call(["unzip","-q",parameter])
-    file=open("./data/data.log","r"); log=file.read(); file.close
+    sfile=open("./data/data.log","r"); log=sfile.read(); sfile.close
     remote=log[0]; dindex=int(log[1:])
 
     if local==remote:                                                # deadlock  A and B must be separate, like sender & receiver machine
@@ -169,16 +169,16 @@ if operation=="-d":  # decryption
 
     size=path.getsize("./data/data.bin")
 
-    file=open(        "./data/data.bin","rb");    cipher=file.read();                 file.close()
-    file=open(dkey,"rb"); file.seek(dindex);         key=file.read(size);             file.close()
-    file=open(       "./data/pack.zip","wb");            file.write(xor(cipher,key)); file.close()
+    sfile=open(        "./data/data.bin","rb");     cipher=sfile.read();                 sfile.close()
+    sfile=open(dkey,"rb"); sfile.seek(dindex);         key=sfile.read(size);             sfile.close()
+    sfile=open(       "./data/pack.zip","wb");             sfile.write(xor(cipher,key)); sfile.close()
 
     call(["rm"         ,"./data/data.bin"])
     call(["unzip","-qo","./data/pack.zip"])
     call(["rm","-rf"   ,"./data/"])
     call(["rm",parameter])
 
-    dindex+=size; file=open(dlog,"w"); file.write(str(dindex)); file.close()
+    dindex+=size; sfile=open(dlog,"w"); sfile.write(str(dindex)); sfile.close()
     stopped=time.time()
     info(size/1024.0/1024.0,stopped-started)
 
