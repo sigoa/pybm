@@ -158,7 +158,7 @@ if operation=="-d":  # decryption
 
     started=time.time()
     call(["unzip","-q",parameter])
-    
+
     sfile=open("./data/data.log","r")
     log=sfile.read( )
     ee =sfile.close()  #  )
