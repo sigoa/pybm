@@ -5,13 +5,13 @@
  To generate keys, enter:        python omega.py   -g <key volume in MiB>
  To encrypt files, enter:        python omega.py   -e <file or directory>
  To decrypt files, enter:        python omega.py   -d <an encrypted file>
- 
+
 
 '''
 import                 time
 from os         import mkdir,path
 from subprocess import call
-from sys        import argv,version              #    ,exit 
+from sys        import argv,version              #    ,exit
 from zipfile    import is_zipfile,ZipFile
 
 
@@ -158,7 +158,10 @@ if operation=="-d":  # decryption
 
     started=time.time()
     call(["unzip","-q",parameter])
-    sfile=open("./data/data.log","r"); log=sfile.read(); sfile.close
+    
+    sfile=open("./data/data.log","r")
+    log=sfile.read()
+    sfile.close
     remote=log[0]; dindex=int(log[1:])
 
     if local==remote:                                                # deadlock  A and B must be separate, like sender & receiver machine
