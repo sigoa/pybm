@@ -110,7 +110,7 @@ if not path.exists("./keys/"): exit("ERROR: No keys available")
 
 if operation=="-e":  # encryption
     if not path.isdir(parameter) and not path.isfile(parameter):         exit("ERROR: File or directory not found")
-    
+
     started=time.time()
     call(["rm","-rf" ,"./data/"])
     call(["mkdir"    ,"./data/"])
@@ -160,8 +160,8 @@ if operation=="-d":  # decryption
     call(["unzip","-q",parameter])
     
     sfile=open("./data/data.log","r")
-    log=sfile.read()
-    sfile.close
+    log=sfile.read( )
+    ee =sfile.close()  #  )
     remote=log[0]; dindex=int(log[1:])
 
     if local==remote:                                                # deadlock  A and B must be separate, like sender & receiver machine
