@@ -22,16 +22,16 @@
 menu()
 {
 local IFS=$' \t\n'
-local num n=1 opt item cmd
+local num n=1 opt item # cmd
 
 clear
 
-## Use default setting of IFS,  Loop though the command-line arguments
+## Use default setting of IFS,  Loop though the command-line arguments --  $(())  no SPACES! 
 echo
 for item
 do
   printf " %3d. %s\n" "$n" "${item%%:*}"
-  n=$(( $n + 1 ))
+  n=$(($n + 1))
 done
 
 ## If there are fewer than 10 items, set option to accept key without ENTER
@@ -96,12 +96,12 @@ EOFherefile
 #  run through the options  1 2 3 4   in this order:   1 2 3 4
 
 menu                                                                                                                         \
-'echo " one time pad creation 1 MegaByte          " ;  git clone      "https://github.com/Bitmessage/PyBitmessage.git"     ' \
-'echo " edit Message and crypt it                 " ;  cd ./PyBitmessage/ ; python2 checkdeps.py ; cd ..                   ' \
-'echo " send data.zip crypt via BM                " ;  cp  ./std_keys.dat                   PyBitmessage/src/keys.dat      ' \
-'echo " decrypt data.zip and read                 " ;  pushd . ; cd  PyBitmessage/src ; ./bitmessagemain.py ;         popd ' \
-'echo "                                           " ;  pushd . ; cd  PyBitmessage/ ; git pull ;                       popd ' \
-'echo " launch BM                                 " ;  pushd . ; cd  PyBitmessage/ ; git fetch --all;                 popd ' \
-'echo " send pics in pic folder                   " ;  pushd . ; cd  PyBitmessage/ ; git reset --hard origin/master ; popd ' \
-'echo "                                           " ;  rm ./PyBitmessage/* ; cd PyBitmessage ; rm -rf man dev build packages desktop ; cd .. ' \
-'echo " fill in your own instruction here         "                                                                        '
+'echo " one time pad creation 1 MegaByte          " ;  pwd      ' \
+'echo " edit Message and crypt it                 " ;  pwd      ' \
+'echo " send data.zip crypt via BM                " ;  pwd      ' \
+'echo " decrypt data.zip and read                 " ;  pushd . ; pwd ;  popd ' \
+'echo "                                           " ;  pwd      ' \
+'echo " launch BM                                 " ;  pwd      ' \
+'echo " send pics in pic folder                   " ;  pwd      ' \
+'echo "                                           " ;  pwd      ' \
+'echo " fill in your own instruction here         "             '
