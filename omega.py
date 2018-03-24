@@ -29,9 +29,9 @@ def info(mib,sec):   # statistics
     print("Processed "+str("%.3f"%float(mib))+" MiB in " + str(round(sec,3))+" s ("+str("%.3f"%float(mib/sec)) + " MiB/s)")
 
 
-print("OMEGA release 42 for Python 2/3, licensed under WTFPL version 2   ")
-print("(O)ne-time-pad (M)essage (E)ncryption & (G)enerator (A)lgorithm   ")
-print("hosted by Cyanbyte Digital Engineering (http://www.cyanbyte.de) \n")
+#print("OMEGA release 42 for Python 2/3, licensed under WTFPL version 2   ")
+#print("(O)ne-time-pad (M)essage (E)ncryption & (G)enerator (A)lgorithm   ")
+#print("hosted by Cyanbyte Digital Engineering (http://www.cyanbyte.de) \n")
 
 
 if path.exists("./keys/"):                                                          # status info
