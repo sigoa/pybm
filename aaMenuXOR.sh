@@ -130,7 +130,7 @@ python2 ./omegaXOR.py -d ./data.zip
 clear
 ls -lhg  --sort=time --time=ctime   .
 echo 
-echo "run some editor (kate) to read the decrypted file now"
+echo "run some editor (kate) to read the decrypted file now "
 }
 
 
