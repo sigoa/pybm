@@ -159,9 +159,11 @@ if operation=="-d":  # decryption
     started=time.time()
     call(["unzip","-q",parameter])
 
-    sfile=open("./data/data.log","r")
-    log=sfile.read( )
-    ee =sfile.close()  #  )
+    #sfile=open("./data/data.log","r")
+    with   open("./data/data.log","r") as sfile:
+        log=sfile.read()
+        #ee =sfile.close()  #  )
+    
     remote=log[0]; dindex=int(log[1:])
 
     if local==remote:                                                # deadlock  A and B must be separate, like sender & receiver machine
