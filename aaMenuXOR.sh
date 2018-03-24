@@ -84,6 +84,54 @@ EOFherefile
 ) > omegaXOR.py
 #----------------------------------------------------------- 
 
+#local bbb=  '88'
+#echo  88 is $bbb
+
+
+picpost()
+{
+for file in ./payload/*
+do
+  python2 ./BM-API-client.py  -e"${file}" -s 'pic sent via API :   ' --es --ttl='60*24*1' -uUSER0000 -pPASSWORD0000
+# echo "${file}"
+done
+}
+
+binpost()
+{
+  # recipient: [chan] general -t BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r
+  python2 ./BM-API-client.py  -m"data.zip" -s 'zip sent via API :   ' --es --ttl='60*24*1' -uUSER0000 -pPASSWORD0000 -t BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r  
+}
+
+
+picpostPolitics()
+{
+# Politics -t BM-2cVE8v7L4qb14R5iU2no9oizkx8MpuvRZ7
+for file in ./payload/*
+do
+  python2 ./BM-API-client.py  -e"${file}" -s 'pic sent via API :   ' --es --ttl='60*24*1' -uUSER0000 -pPASSWORD0000  -t BM-2cVE8v7L4qb14R5iU2no9oizkx8MpuvRZ7
+# echo "${file}"
+done
+}
+
+# if you wanna read ure own stuff.  
+# if set up as user B already, then
+#                                                         python2 ./omegaXOR.py -d ./data.zip   
+# is sufficient; no need to changeover from A to B
+omegaDecryp()  
+{
+mv keys   keysa
+cp keysa  keysb
+cp keysb  keys
+rm        keys/config
+touch     keys/config
+echo b >> keys/config  # switch to "system B"
+python2 ./omegaXOR.py -d ./data.zip    
+clear
+ls -lhg  --sort=time --time=ctime   .
+echo 
+echo "run some editor (kate) to read the decrypted file now"
+}
 
 
 
@@ -96,12 +144,12 @@ EOFherefile
 #  run through the options  1 2 3 4   in this order:   1 2 3 4
 
 menu                                                                                                                         \
-'echo " one time pad creation 1 MegaByte          " ;  pwd      ' \
-'echo " edit Message and crypt it                 " ;  pwd      ' \
-'echo " send data.zip crypt via BM                " ;  pwd      ' \
-'echo " decrypt data.zip and read                 " ;  pushd . ; pwd ;  popd ' \
-'echo "                                           " ;  pwd      ' \
-'echo " launch BM                                 " ;  pwd      ' \
-'echo " send pics in pic folder                   " ;  pwd      ' \
-'echo "                                           " ;  pwd      ' \
-'echo " fill in your own instruction here         "             '
+'echo " create a one time pad, size 1 MegaByte    " ;  python2 ./omegaXOR.py -g 1               ' \
+'echo " edit Message and crypt it  (as user A)    " ;  kate msg ; python2 ./omegaXOR.py -e msg  ' \
+'echo "                                           "                                             ' \
+'echo " decrypt data.zip and read  (as user B)    " ;  omegaDecryp                              ' \
+'echo "                                           "                                             ' \
+'echo " launch BM                                 " ;  ./bitmessagemain.py                      ' \
+'echo " send crypted data.zip  via bitmessage     " ;  binpost                                  ' \
+'echo " post all pics in dir ./payload/*          " ;  picpost                                  ' \
+'echo '
